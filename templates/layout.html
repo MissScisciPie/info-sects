@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>INFO/SECT</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+HK&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/docs.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dselect.css')}}">
+  <link href="{{ url_for('static', filename='css/dataTables.bootstrap5.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/searchBuilder.bootstrap5.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/dataTables.dateTime.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/buttons.bootstrap5.min.css')}}" rel="stylesheet">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='logo.gif') }}">
+  <script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/fontawesome-icon/css/all.min.css') }}"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css"/>
+</head>
+
+<body>
+ 
+ <!-- include the nav -->
+ {% include "includes/_nav.html" %}
+
+{% block header %}
+{% endblock %}   
+
+ <main>
+    {% block content %}
+    {% endblock %}     
+ </main>
+ <script src="{{ url_for('static', filename='dselect.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='offcanvas.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/jquery-3.5.1.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/dataTables.bootstrap5.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/dataTables.searchBuilder.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/searchBuilder.bootstrap5.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/dataTables.dateTime.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/dataTables.buttons.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/buttons.bootstrap5.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/jszip.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/pdfmake.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/vfs_fonts.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/buttons.html5.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/buttons.print.min.js')}}"></script>
+ <script src="{{ url_for('static', filename='js/buttons.colVis.min.js')}}"></script>
+ <script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+</body>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block header %}
+    <header>
+        <img src="../static/assets/logo.png"/>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <div class="posts">
+        <div class="weather-stats">
+            <div class="stat">
+                <div class="value" style="background-color: #8bc34a;">
+                    <p>Humidity: {{ humidity }} %</p>
+                </div>
+            </div>
+            <div class="stat">
+                <div class="value" style="background-color: #2196f3;">
+                    <p>Temperature: {{ temperature }} °C</p>
+                </div>
+            </div>
+            <div class="stat">
+                {% if rain == 1 %}
+                    <div class="value" style="background-color: #9e9e9e;">
+                        <p>No Rain</p>
+                    </div>
+                {% else %}
+                    <div class="value" style="background-color: #f44336;">
+                        <p>Raining</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="post">
+            <p class="title">Welcome to INFO/SECT</p>
+            <p>We are excited to have you join us in this important initiative dedicated to supporting farmers in identifying and managing infestations on their farms. At INFO/SECT, our mission is to empower agricultural producers with the knowledge and tools necessary to protect their crops and livestock from various pests and diseases.</p>
+        </div>
+    </div>
+{% endblock %}

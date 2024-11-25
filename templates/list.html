@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Detected Items</h2>
+    <table class="table table-sm m-0 table-hover table-bordered pt-2">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Classification Counts</th>
+                <th>Detected By</th>
+                <th>Detection Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if detected_list %}
+                {% for key, item in detected_list.items() %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <img src="{{ url_for('static', filename='processed/' ~ item.file_name) }}" alt="{{ item.file_name }}" style="width: 50px; height: auto;">
+                    </td>
+                    <td>
+                        {% if item.classification_counts %}
+                            <ul class="list-unstyled">
+                                {% for label, count in item.classification_counts.items() %}
+                                    <li><strong>{{ label }}:</strong> {{ count }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <em>No classifications available</em>
+                        {% endif %}
+                    </td>
+                    <td>{{ item.author }}</td>
+                    <td>{{ item.detection_time }}</td>
+                    <td>
+                        <button class="btn btn-view btn-secondary" data-bs-toggle="modal" data-bs-target="#viewModal{{ loop.index }}">View</button>
+        
+                        <form action="{{ url_for('delete', id=key) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-delete btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+        
+                <!-- View Modal -->
+                <div class="modal fade" id="viewModal{{ loop.index }}" tabindex="-1" aria-labelledby="viewModalLabel{{ loop.index }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="viewModalLabel{{ loop.index }}">Detected Item: {{ item.file_name }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-center mb-4">
+                                    <img src="{{ url_for('static', filename='processed/' ~ item.file_name) }}" alt="{{ item.file_name }}" class="img-fluid mb-3" style="max-height: 400px;">
+                                </div>
+                                <h6 class="mb-3">Classification Counts:</h6>
+                                {% if item.classification_counts %}
+                                    <ul class="list-unstyled">
+                                        {% for label, count in item.classification_counts.items() %}
+                                            <li><strong>{{ label }}:</strong> {{ count }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <em>No classifications available</em>
+                                {% endif %}
+                                <hr>
+                                <p><strong>Detected By:</strong> {{ item.author }}</p>
+                                <p><strong>Detection Time:</strong> {{ item.detection_time }}</p>
+
+                                <!-- Pest Control Information Based on Classification Label -->
+                                {% if 'COTTON STAINER BUG' in item.classification_counts %}
+                                <hr>
+                                <h6>Cotton Stainer Bug (Dysdercus cingulatus) Control:</h6>
+                                <ul>
+                                    <li>Remove cotton plants or any plants that attract Red Cotton Stainer as soon as harvest is done.</li>
+                                    <li>Keep Cotton lint and Okra clean to avoid pest multiplying.</li>
+                                    <li>Plant cotton strictly as an annual crop to break the pest's cycle.</li>
+                                    <li>Avoid planting cotton near alternative host plants like the Baobab tree.</li>
+                                    <li>Use Tanglefoot around tree trunks.</li>
+                                    <li>Cover Okra with plastic with small holes for ventilation.</li>
+                                </ul>
+                                {% endif %}
+
+                                {% if 'BEAN BUG' in item.classification_counts %}
+                                <hr>
+                                <h6>Bean Bug (Riptortus pedestris) Control:</h6>
+                                <ul>
+                                    <li>Apply semiochemicals in soybean and use the push-pull strategy.</li>
+                                    <li>Push-Pull strategy: Repel pests from the main crop (push) and attract them further away (pull).</li>
+                                </ul>
+                                {% endif %}
+
+                                {% if 'LIMA BEAN POD BORER' in item.classification_counts %}
+                                <hr>
+                                <h6>Lima Bean Pod Borer (Maruca vitrata) Control:</h6>
+                                <ul>
+                                    <li>Plow between September and November to disrupt larvae overwintering.</li>
+                                    <li>Plant early to allow crops to reach maturity before pod borers emerge.</li>
+                                    <li>Remove nearby unnecessary legumes (beans) as they are a common alternative host.</li>
+                                </ul>
+                                {% endif %}
+
+                                {% if 'CRUCIFEAR FLEA BEETLE' in item.classification_counts %}
+                                <hr>
+                                <h6>Crucifer Flea Beetle (Phyllotreta cruciferae) Control:</h6>
+                                <ul>
+                                    <li>Use row covers (kulambo) in plots with mung beans.</li>
+                                    <li>Plant trap crops like radish, arugula, or daikon.</li>
+                                    <li>Use sticky traps to catch beetles.</li>
+                                </ul>
+                                {% endif %}
+
+                                {% if 'MEXICAN BEAN BEETLE' in item.classification_counts %}
+                                <hr>
+                                <h6>Mexican Bean Beetle (Epilachna varivestis) Control:</h6>
+                                <ul>
+                                    <li>Cover entire rows of beans with row covers after planting.</li>
+                                    <li>Crush and destroy egg clusters, larvae, and adults by hand.</li>
+                                    <li>Release the beneficial wasp Pediobius faveolatus when larvae are first observed.</li>
+                                    <li>For severe infestations, use insecticides like spinosad, neem, or pyrethrum.</li>
+                                    <li>Bag and compost badly infested plants after harvest.</li>
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No detected items available.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

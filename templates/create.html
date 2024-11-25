@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <form method="POST" action="/create" enctype="multipart/form-data">
+      <h2>Upload a new file for object detection</h2>
+      <div class="form-control">
+          <label for="file">Upload file:</label>
+          <input type="file" name="file" accept="image/*">
+      </div>
+      <input type="submit" value="Upload and Detect">
+  </form>
+{% endblock %}

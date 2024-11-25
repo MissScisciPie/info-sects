@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container text-center"> <!-- Center the content -->
+    <h2>Detected Objects</h2>
+    <img src="{{ url_for('static', filename='processed/' + filename) }}" alt="Processed Image" 
+    style="width: 600px; height: 600px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); border-radius: 8px;">
+    
+    <br><br>
+    <!-- Modern Back Button -->
+    <a href="javascript:history.back()" class="btn btn-primary" style="padding: 10px 20px; border-radius: 5px; text-decoration: none; transition: background-color 0.3s;">
+      Back
+    </a>
+  </div>
+{% endblock %}
